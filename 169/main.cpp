@@ -33,11 +33,18 @@ int majorityElement(vector<int>& nums)
     return element;
 }
 
+int majorityElement1(vector<int> &nums) //using sorting
+{
+    sort(nums.begin(), nums.end());
+
+    return nums[nums.size() / 2];
+}
+
 int main()
 {
     vector<int> mVector1 = {2,2,1,1,1,2,2};
     vector<int> mVector2 = {3, 2, 3};
-    cout << majorityElement(mVector1) << endl;
-    cout << majorityElement(mVector2) << endl;
+    cout << majorityElement1(mVector1) << endl;
+    cout << majorityElement1(mVector2) << endl;
     return 0;
 }
