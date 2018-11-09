@@ -5,43 +5,51 @@
 
 using namespace std;
 
-map<char, vector<char> > mMap;
-vector<char> mVec2 = {'a', 'b', 'c'};
-vector<char> mVec3 = {'d', 'e', 'f'};
-vector<char> mVec4 = {'g', 'h', 'i'};
-vector<char> mVec5 = {'j', 'k', 'l'};
-vector<char> mVec6 = {'m', 'n', 'o'};
-vector<char> mVec7 = {'p', 'q', 'r', 's'};
-vector<char> mVec8 = {'t', 'u', 'v'};
-vector<char> mVec9 = {'w', 'x', 'y', 'z'};
+vector<string> letArr = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
-vector<string> letterCombinations(string digits) {
-    mMap['2'] = mVec2;
-    mMap['3'] = mVec3;
-    mMap['4'] = mVec4;
-    mMap['5'] = mVec5;
-    mMap['6'] = mVec6;
-    mMap['7'] = mVec7;
-    mMap['8'] = mVec8;
-    mMap['9'] = mVec9;
+void CombineNext(string sNow, unsigned int nextIndex, string input, vector<string> &res) //using recursive
+{
+    string s, sl;
 
-    vector<string> res;
-
-    for (unsigned int i = 0; i < digits.size(); ++i) {
-        for (unsigned int j = 0; j < mMap.at(digits[i]).size(); ++j) {
-            cout << mMap.at(digits[i])[j] << "\t";
-        }
-        cout << endl;
+    if (nextIndex > input.size()) {
+        return;
     }
 
-    for (unsigned int i = 0; i < res.size(); ++i) {
-        cout << res[i] << endl;
+    sl = letArr[(input[nextIndex] - '0') - 2];
+
+    for (unsigned int i = 0; i < sl.size(); ++i) {
+        s = sNow + sl[i];
+        if (s.size() == input.size()) {
+            cout << s << endl;
+            res.push_back(s);
+        }
+        else {
+            CombineNext(s, nextIndex + 1, input, res);
+        }
+    }
+}
+
+vector<string> letterCombinations(string digits)
+{
+    vector<string> res;
+
+    string firstInputStr = letArr[(digits[0] - '0') - 2];
+
+    for (unsigned int j = 0; j < firstInputStr.size(); ++j) {
+        string mStr;
+        mStr.push_back(firstInputStr[j]);
+        if (digits.size() == 1) {
+            res.push_back(mStr);
+        }
+        else {
+            CombineNext(mStr, 1, digits, res);
+        }
     }
 
     return res;
 }
 
-vector<string> letterCombinations1(string digits)
+vector<string> letterCombinations1(string digits) //using BFS
 {
     vector<string> res;
 
@@ -67,6 +75,6 @@ vector<string> letterCombinations1(string digits)
 
 int main()
 {
-    letterCombinations1("23");
+    letterCombinations("23");
     return 0;
 }
