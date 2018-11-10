@@ -73,8 +73,50 @@ vector<string> letterCombinations1(string digits) //using BFS
     return res;
 }
 
+vector<string> letterCombinations2(string digits) {
+    vector<int> numbers;
+    vector<string> preset = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    vector<string> result;
+    vector<string> finalResult;
+
+    //把digits一个个拆分开，保存到numbers里面
+    for (unsigned int i = 0; i < digits.size(); ++i) {
+        numbers.push_back(digits[i] - '0');
+    }
+
+    unsigned int index = 1;
+
+    //把numbers中的第一个按键，如按了2后，把a,b,c拆开保存到result里面
+    if (numbers.size() > 0) {
+        for (unsigned int i = 0; i < preset[numbers[0] - 2].size(); ++i) {
+            string str = string() + preset[numbers[0] - 2][i];
+            result.push_back(str);
+        }
+    }
+
+    if (numbers.size() == 1) return result;
+
+    while (index < numbers.size()) {
+        finalResult.clear();
+
+        //把numbers中，如刚才的a,b,c跟第二个按键，第三个按键拆开的结果结合到一起，保存到finalResult里面
+        for (unsigned int i = 0; i < preset[numbers[index] - 2].size(); ++i) {
+            for (unsigned int j = 0; j < result.size(); ++j) {
+                string comb = string() + result[j] + preset[numbers[index] - 2][i];
+                finalResult.push_back(comb);
+            }
+        }
+
+        result.clear();
+        result = finalResult;
+        index += 1;
+    }
+
+    return finalResult;
+}
+
 int main()
 {
-    letterCombinations("23");
+    letterCombinations2("23");
     return 0;
 }
