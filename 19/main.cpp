@@ -13,7 +13,7 @@ struct ListNode {
 
 ListNode *makeNode(ListNode *node, vector<int> mVec, int index)
 {
-    if (index == mVec.size()) {
+    if (index == static_cast<int>(mVec.size())) {
         return node;
     }
 
@@ -71,7 +71,6 @@ int main()
     vector<int> mVec = {1, 2, 3, 4, 5};
     ListNode *node = new ListNode(1);
     makeNode(node, mVec, 1);
-    returnNodeVec(node);
     ListNode *res = removeNthFromEnd(node, 2);
     printNode(res);
 
