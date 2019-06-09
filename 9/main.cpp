@@ -41,6 +41,23 @@ bool isPalindrome(int x)
     return false;
 }
 
+bool isPalindrome1(int x)
+{
+    if (x < 0) {
+        return false;
+    }
+
+    string xStr = std::to_string(x);
+    string xStrRev = std::to_string(x);
+    std::reverse(xStrRev.begin(), xStrRev.end());
+
+    if (xStr == xStrRev) {
+        return true;
+    }
+
+    return false;
+}
+
 int main()
 {
     cout << isPalindrome(121) << endl;
