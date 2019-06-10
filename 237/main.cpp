@@ -23,6 +23,19 @@ void deleteNode(struct ListNode *node)
     node->next = node->next->next;
 }
 
+void deleteNode1(struct ListNode *node)
+{
+    ListNode *prev = nullptr;
+    while (node->next != nullptr) {
+        node->val = node->next->val;
+        prev = node;
+        node = node->next;
+    }
+
+    delete node;
+    prev->next = nullptr;
+}
+
 int main()
 {
     ListNode *node = new ListNode(4);
