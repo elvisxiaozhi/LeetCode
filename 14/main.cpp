@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -37,10 +38,35 @@ string longestCommonPrefix(vector<string>& strs)
     return res;
 }
 
+string longestCommonPrefix_1(vector<string>& strs) //using sort method
+{
+    string res;
+    if (strs.empty()) {
+        return res;
+    }
+
+    sort(strs.begin(), strs.end());
+
+    string str1 = strs[0];
+    string str2 = strs[strs.size() - 1];
+    unsigned int i, n = max(str1.size(), str2.size());
+    for (i = 0; i < n; ++i) {
+        if (str1[i] == str2[i]) {
+            res.push_back(str1[i]);
+        }
+        else {
+            break;
+        }
+    }
+
+    return res;
+}
+
 int main()
 {
     vector<string> vec1 = {"flower","flow","flight"};
-    longestCommonPrefix(vec1);
+    cout << longestCommonPrefix(vec1) << endl;
+    cout << longestCommonPrefix_1(vec1) << endl;
 
     return 0;
 }
